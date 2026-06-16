@@ -1,5 +1,5 @@
-vim.cmd("colorscheme catppuccin")
 vim.cmd("set relativenumber")
+vim.cmd("set number")
 
 vim.diagnostic.config({
 	virtual_text = true,
@@ -13,8 +13,10 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/folke/tokyonight.nvim" },
 	-- { src = "https://github.com" }
 })
+
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -222,3 +224,20 @@ require("conform").setup({
 		lsp_format = "fallback",
 	},
 })
+require("tokyonight").setup({
+  -- use the night style
+  style = "night",
+  -- disable italic for functions
+  styles = {
+    functions = {},
+  },
+  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+  on_colors = function(colors)
+    colors.hint = colors.orange
+    colors.error = "#ff0000"
+    colors.bg = "#000000"
+    colors.fg = "#ffffff"
+  end,
+})
+
+vim.cmd("colorscheme tokyonight-night")
