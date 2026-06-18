@@ -17,14 +17,14 @@ vim.pack.add({
 	-- { src = "https://github.com" }
 })
 
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("oil").setup()
-require("snacks").setup({ picker = { enabled = true } })
+require("snacks").setup({ picker = { enabled = true }, explorer = { enabled = false } })
 
 -- Bindings
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("n", "<leader>e", ":e .<return>")
 
 -- snacks picker bindings
 -- Top Pickers & Explorer
@@ -43,9 +43,6 @@ end, { desc = "Command History" })
 vim.keymap.set("n", "<leader>n", function()
 	Snacks.picker.notifications()
 end, { desc = "Notification History" })
-vim.keymap.set("n", "<leader>e", function()
-	Snacks.explorer()
-end, { desc = "File Explorer" })
 -- find
 vim.keymap.set("n", "<leader>fb", function()
 	Snacks.picker.buffers()
@@ -225,19 +222,19 @@ require("conform").setup({
 	},
 })
 require("tokyonight").setup({
-  -- use the night style
-  style = "night",
-  -- disable italic for functions
-  styles = {
-    functions = {},
-  },
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  on_colors = function(colors)
-    colors.hint = colors.orange
-    colors.error = "#ff0000"
-    colors.bg = "#000000"
-    colors.fg = "#ffffff"
-  end,
+	-- use the night style
+	style = "night",
+	-- disable italic for functions
+	styles = {
+		functions = {},
+	},
+	-- Change the "hint" color to the "orange" color, and make the "error" color bright red
+	on_colors = function(colors)
+		colors.hint = colors.orange
+		colors.error = "#ff0000"
+		colors.bg = "#000000"
+		colors.fg = "#ffffff"
+	end,
 })
 
 vim.cmd("colorscheme tokyonight-night")
