@@ -45,6 +45,10 @@ vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil"
 vim.keymap.set("n", "<leader>ws", ":split<return>")
 vim.keymap.set("n", "<leader>wc", ":close<return>")
 
+-- Bindings
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("n", "<leader>e", ":e .<return>")
+
 -- snacks picker bindings
 -- Top Pickers & Explorer
 vim.keymap.set("n", "<leader><space>", function()
