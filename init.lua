@@ -1,5 +1,20 @@
-vim.cmd("colorscheme catppuccin")
 vim.cmd("set relativenumber")
+vim.cmd("set number")
+
+-- -- Fix clipboard and black screen hangs by overriding the clipboard provider
+-- vim.opt.clipboard:append("unnamedplus")
+-- vim.g.clipboard = {
+-- 	name = "wsl-clipboard",
+-- 	copy = {
+-- 		["+"] = "clip.exe",
+-- 		["*"] = "clip.exe",
+-- 	},
+-- 	paste = {
+-- 		["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- 		["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- 	},
+-- 	cache_enabled = 0,
+-- }
 
 vim.diagnostic.config({
 	virtual_text = true,
@@ -13,16 +28,22 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/folke/tokyonight.nvim" },
+	{ src = "https://github.com/folke/which-key.nvim" },
 	-- { src = "https://github.com" }
 })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("oil").setup()
-require("snacks").setup({ picker = { enabled = true } })
+require("snacks").setup({ picker = { enabled = true }, explorer = { enabled = false } })
+require("which-key").setup()
 
 -- Bindings
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil" })
+vim.keymap.set("n", "<leader>ws", ":split<return>")
+vim.keymap.set("n", "<leader>wc", ":close<return>")
 
 -- snacks picker bindings
 -- Top Pickers & Explorer
@@ -41,9 +62,6 @@ end, { desc = "Command History" })
 vim.keymap.set("n", "<leader>n", function()
 	Snacks.picker.notifications()
 end, { desc = "Notification History" })
-vim.keymap.set("n", "<leader>e", function()
-	Snacks.explorer()
-end, { desc = "File Explorer" })
 -- find
 vim.keymap.set("n", "<leader>fb", function()
 	Snacks.picker.buffers()
@@ -184,7 +202,7 @@ vim.keymap.set("n", "gD", function()
 end, { desc = "Goto Declaration" })
 vim.keymap.set("n", "gr", function()
 	Snacks.picker.lsp_references()
-end, { nowait = true }, { desc = "References" })
+end, { nowait = true, desc = "References" })
 vim.keymap.set("n", "gI", function()
 	Snacks.picker.lsp_implementations()
 end, { desc = "Goto Implementation" })
@@ -210,7 +228,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		-- -- Conform will run multiple formatters sequentially
-		-- python = { "isort", "black" },
+		python = { "ruff" },
 		-- -- You can customize some of the format options for the filetype (:help conform.format)
 		-- rust = { "rustfmt", lsp_format = "fallback" },
 		-- -- Conform will run the first available formatter
@@ -222,3 +240,20 @@ require("conform").setup({
 		lsp_format = "fallback",
 	},
 })
+require("tokyonight").setup({
+	-- use the night style
+	style = "night",
+	-- disable italic for functions
+	styles = {
+		functions = {},
+	},
+	-- Change the "hint" color to the "orange" color, and make the "error" color bright red
+	on_colors = function(colors)
+		colors.hint = colors.orange
+		colors.error = "#ff0000"
+		colors.bg = "#000000"
+		colors.fg = "#ffffff"
+	end,
+})
+
+vim.cmd("colorscheme tokyonight-night")
