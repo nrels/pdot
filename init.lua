@@ -1,8 +1,7 @@
 vim.cmd("set relativenumber")
 vim.cmd("set number")
-
--- -- Fix clipboard and black screen hangs by overriding the clipboard provider
--- vim.opt.clipboard:append("unnamedplus")
+-- Fix clipboard and black screen hangs by overriding the clipboard provider
+vim.opt.clipboard:append("unnamedplus")
 -- vim.g.clipboard = {
 -- 	name = "wsl-clipboard",
 -- 	copy = {
@@ -30,6 +29,8 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/saghen/blink.lib" },
+	{ src = "https://github.com/saghen/blink.cmp" },
 	-- { src = "https://github.com" }
 })
 
@@ -38,7 +39,9 @@ require("mason-lspconfig").setup()
 require("oil").setup()
 require("snacks").setup({ picker = { enabled = true }, explorer = { enabled = false } })
 require("which-key").setup()
-
+local cmp = require("blink.cmp")
+cmp.build():pwait()
+cmp.setup()
 -- Bindings
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil" })
