@@ -1,7 +1,7 @@
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 -- Fix clipboard and black screen hangs by overriding the clipboard provider
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = "unnamedplus"
 -- vim.g.clipboard = {
 -- 	name = "wsl-clipboard",
 -- 	copy = {
