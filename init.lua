@@ -1,20 +1,8 @@
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 -- Fix clipboard and black screen hangs by overriding the clipboard provider
+-- install something like win32yank `scoop install win32yank`
 vim.opt.clipboard = "unnamedplus"
--- vim.g.clipboard = {
--- 	name = "wsl-clipboard",
--- 	copy = {
--- 		["+"] = "clip.exe",
--- 		["*"] = "clip.exe",
--- 	},
--- 	paste = {
--- 		["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
--- 		["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
--- 	},
--- 	cache_enabled = 0,
--- }
-
 vim.diagnostic.config({
 	virtual_text = true,
 })
@@ -38,19 +26,27 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("oil").setup()
 require("snacks").setup({ picker = { enabled = true }, explorer = { enabled = false } })
-require("which-key").setup()
+
 local cmp = require("blink.cmp")
 cmp.build():pwait()
-cmp.setup()
+cmp.setup({
+	keymap = {
+		preset = "default",
+		["<C-o>"] = { "show", "hide" }, -- Only one command defined! }
+	},
+	completion = { documentation = { auto_show = true } },
+})
 -- Bindings
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil" })
 vim.keymap.set("n", "<leader>ws", ":split<return>")
 vim.keymap.set("n", "<leader>wc", ":close<return>")
 
--- Bindings
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
-vim.keymap.set("n", "<leader>e", ":e .<return>")
+vim.keymap.set("n", "tn", ":tabnext<return>", { desc = "next tab" })
+vim.keymap.set("n", "tp", ":tabprevious<return>", { desc = "previous tab" })
+vim.keymap.set("n", "tc", ":tabnew<return>", { desc = "create tab" })
+
+require("which-key").setup()
 
 -- snacks picker bindings
 -- Top Pickers & Explorer
