@@ -23,8 +23,8 @@ vim.pack.add({
 	-- { src = "https://github.com" }
 })
 
--- require("mason").setup()
--- require("mason-lspconfig").setup()
+require("mason").setup()
+require("mason-lspconfig").setup()
 require("oil").setup({
   columns = {
     "icon",
