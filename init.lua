@@ -3,6 +3,7 @@ vim.cmd("set number")
 -- Fix clipboard and black screen hangs by overriding the clipboard provider
 -- install something like win32yank `scoop install win32yank`
 vim.opt.clipboard = "unnamedplus"
+vim.opt.linebreak = true
 vim.diagnostic.config({
 	virtual_text = true,
 })
@@ -22,9 +23,19 @@ vim.pack.add({
 	-- { src = "https://github.com" }
 })
 
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("oil").setup()
+-- require("mason").setup()
+-- require("mason-lspconfig").setup()
+require("oil").setup({
+  columns = {
+    "icon",
+    -- You can customize the format string here
+    { "mtime", format = "%Y-%m-%d %H:%M" }, 
+    -- Other optional columns you might want:
+    -- "size",
+    -- "permissions",
+  },
+})
+
 require("snacks").setup({ picker = { enabled = true }, explorer = { enabled = false } })
 
 local cmp = require("blink.cmp")
@@ -32,7 +43,8 @@ cmp.build():pwait()
 cmp.setup({
 	keymap = {
 		preset = "default",
-		["<C-o>"] = { "show", "hide" }, -- Only one command defined! }
+		["<C-o>"] = { "show", "hide" },
+		["<CR>"] = { "select_and_accept", "fallback" },
 	},
 	completion = { documentation = { auto_show = true } },
 })
@@ -260,3 +272,13 @@ require("tokyonight").setup({
 })
 
 vim.cmd("colorscheme tokyonight-night")
+
+--- LSP
+--- pipx install jedi-language-server
+-- vim.lsp.enable('jedi_language_server')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('ruff')
+
+-- Standard modern Neovim keymap configuration
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Refactor: Rename symbol' })
+
