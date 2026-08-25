@@ -264,3 +264,8 @@ require("tokyonight").setup({
 })
 
 vim.cmd("colorscheme tokyonight-night")
+
+-- personal commands/functions
+vim.keymap.set("n", "<leader>it", function()
+	vim.api.nvim_put({ os.date() }, "c", true, true)
+end, { desc = "insert date timestamp" })
