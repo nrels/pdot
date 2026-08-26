@@ -1,6 +1,9 @@
-vim.cmd("set relativenumber")
+-- vim.cmd("set relativenumber")
+vim.opt.relativenumber = true
 
-vim.cmd("set number")
+-- vim.cmd("set number")
+vim.opt.number = true
+
 -- Fix clipboard and black screen hangs by overriding the clipboard provider
 -- install something like win32yank `scoop install win32yank`
 vim.opt.clipboard = "unnamedplus"
@@ -10,6 +13,8 @@ vim.diagnostic.config({
 })
 vim.opt.foldmethod = "indent"
 vim.g.mapleader = " "
+-- vim.opt.scrolloffpad = 1
+
 vim.pack.add({
 	-- { src = "https://github.com/mason-org/mason.nvim" },
 	-- { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
