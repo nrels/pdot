@@ -1,6 +1,5 @@
 -- vim.cmd("set relativenumber")
 vim.opt.relativenumber = true
-
 -- vim.cmd("set number")
 vim.opt.number = true
 
@@ -11,7 +10,11 @@ vim.opt.linebreak = true
 vim.diagnostic.config({
 	virtual_text = true,
 })
+
+-- indentation
 vim.opt.foldmethod = "indent"
+vim.opt.foldlevelstart = 99  -- set the starting fold depth very high so I can see everything
+
 vim.g.mapleader = " "
 -- vim.opt.scrolloffpad = 1
 
