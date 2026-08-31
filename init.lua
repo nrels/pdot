@@ -11,12 +11,16 @@ vim.diagnostic.config({
 	virtual_text = true,
 })
 
+
+-- TODO: wrap virtual text
+-- vim.opt.virtual_text
 -- indentation
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99  -- set the starting fold depth very high so I can see everything
 
 vim.g.mapleader = " "
 -- vim.opt.scrolloffpad = 1
+vim.opt.scrolloff = 999
 
 vim.pack.add({
 	-- { src = "https://github.com/mason-org/mason.nvim" },
@@ -257,11 +261,11 @@ require("conform").setup({
 		-- -- Conform will run the first available formatter
 		-- javascript = { "prettierd", "prettier", stop_after_first = true },
 	},
-	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
-		lsp_format = "fallback",
-	},
+	-- format_on_save = {
+	-- 	-- These options will be passed to conform.format()
+	-- 	timeout_ms = 500,
+	-- 	lsp_format = "fallback",
+	-- },
 })
 
 -- tokyonight setup
@@ -304,6 +308,7 @@ vim.keymap.set("t", "<C-Space>", [[<C-\><C-n>]])
 
 -- window management
 vim.keymap.set("n", "<leader>ws", ":split<return>")
+vim.keymap.set("n", "<leader>wv", ":vsplit<return>")
 vim.keymap.set("n", "<leader>wc", ":close<return>")
 
 vim.keymap.set("n", "<leader>tn", ":tabnext<return>", { desc = "next tab" })
