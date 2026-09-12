@@ -6,8 +6,33 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 vim.diagnostic.config({
-	virtual_text = true,
+  virtual_text = true, -- Show errors inline
+  signs = true,        -- Show error icons in the sign column
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
 })
+
+-- Keymap to open error messages in a floating window
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { silent = true })
+
+-- Next diagnostic
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ 
+    count = 1, 
+    -- float = true, -- DEPRECATED
+    on_jump = function() vim.diagnostic.open_float({ focus = false }) end 
+  })
+end, { desc = "Next Diagnostic" })
+
+-- Previous diagnostic
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ 
+    count = -1, 
+    on_jump = function() vim.diagnostic.open_float({ focus = false }) end 
+  })
+end, { desc = "Previous Diagnostic" })
+
 
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99  -- set the starting fold depth very high so I can see everything
