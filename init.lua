@@ -14,7 +14,7 @@ vim.diagnostic.config({
 })
 
 -- Keymap to open error messages in a floating window
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { silent = true })
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { silent = true, desc = "Open diagnostic" })
 
 -- Next diagnostic
 vim.keymap.set('n', ']d', function()
@@ -66,10 +66,15 @@ vim.pack.add({
 
 require("fzf-lua").setup()
 vim.keymap.set('n', '<leader>ff', FzfLua.files, { desc= 'fzf files'})
-vim.keymap.set('n', '<leader>ff', FzfLua.files, { desc= 'fzf files'})
+vim.keymap.set('n', '<leader>fg', FzfLua.live_grep, { desc= 'fzf files'})
+vim.keymap.set('n', '<leader>fs', FzfLua.lsp_document_symbols, { desc= 'fzf document symbols'}) vim.keymap.set('n', '<leader>fb', FzfLua.buffers, { desc= 'fzf buffers'})
+
+vim.keymap.set("n", "gd", FzfLua.lsp_definitions, { desc = "goto defintion" })
+
 vim.keymap.set("n", "<leader>fc", function()
 	vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
 end, { desc = "Find (and edit) config file" })
+
 
 require("mason").setup()
 require("mason-lspconfig").setup()
