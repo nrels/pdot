@@ -39,6 +39,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 alias ls='ls --color=auto'
 alias vim='nvim'
+alias gs="git status"
 
 # from astral, probably. A shell built-in command that is identical to `source`
 . "$HOME/.local/bin/env"
