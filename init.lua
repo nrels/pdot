@@ -1,4 +1,4 @@
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.linebreak = true
 vim.g.loaded_netrw = 1
@@ -104,6 +104,7 @@ vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "fzf files" })
 vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "fzf files" })
 vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "fzf document symbols" })
 vim.keymap.set("n", "<leader>fb", FzfLua.buffers, { desc = "fzf buffers" })
+vim.keymap.set("n", "<leader>fj", FzfLua.jumps, { desc = "fzf jumps" })
 
 vim.keymap.set("n", "gd", FzfLua.lsp_definitions, { desc = "goto defintion" })
 
@@ -147,8 +148,15 @@ cmp.setup({
 
 -- LSP and Formatting
 vim.lsp.enable("basedpyright")
-vim.lsp.enable("lua_ls")
+vim.lsp.enable("shellcheck")
 
+vim.lsp.config.bashls = {
+	cmd = { "bash-language-server", "start" },
+	filetypes = { "bash", "sh" },
+}
+vim.lsp.enable("bashls")
+
+vim.lsp.enable("lua_ls")
 vim.lsp.config.lua_ls = {
 	settings = {
 		Lua = {
@@ -243,14 +251,6 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename
 vim.opt.autoread = true
 
 -- Trigger checktime to refresh buffers when focus changes or cursor moves
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-	pattern = "*",
-	callback = function()
-		if vim.fn.mode() ~= "c" then
-			vim.cmd("checktime")
-		end
-	end,
-})
 
 -- TESTING
 -- vim.keymap.set('n', '<leader>gd', diffview.open, { desc= 'git diff view'})
@@ -298,3 +298,4 @@ end, { desc = "Copy file path" })
 vim.keymap.set("v", "<leader>cp", function()
 	copy_ref({ visual = true })
 end, { desc = "Copy file path with line range" })
+-- TODO: :set virtualedit=all for navigating
