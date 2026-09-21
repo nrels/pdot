@@ -185,14 +185,26 @@ cmp.setup({
 })
 
 -- LSP and Formatting
-vim.lsp.enable("basedpyright")
-vim.lsp.enable("shellcheck")
+-- vim.lsp.enable("basedpyright")
+-- vim.lsp.enable("shellcheck")
+-- vim.lsp.enable("marksman")
+--
+-- vim.lsp.config.marksman = {
+-- 	cmd = { 'marksman' },
+-- 	filetypes = { 'markdown' }
+-- }
+--
+-- vim.lsp.config.bashls = {
+-- 	cmd = { 'bash-language-server', 'start' },
+-- 	filetypes = { 'bash', 'sh' }
+-- }
+-- vim.lsp.enable 'bashls'
 
+vim.lsp.enable("bashls")
 vim.lsp.config.bashls = {
 	cmd = { "bash-language-server", "start" },
 	filetypes = { "bash", "sh" },
 }
-vim.lsp.enable("bashls")
 
 vim.lsp.enable("lua_ls")
 vim.lsp.config.lua_ls = {
@@ -287,8 +299,6 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename
 -- TESTING
 -- Enable autoread to reload files changed outside Neovim
 vim.opt.autoread = true
-
--- Trigger checktime to refresh buffers when focus changes or cursor moves
 
 -- TESTING
 -- vim.keymap.set('n', '<leader>gd', diffview.open, { desc= 'git diff view'})
