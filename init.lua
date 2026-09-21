@@ -117,15 +117,22 @@ cmp.setup({
 require("which-key").setup()
 
 -- LSP and Formatting
-vim.lsp.enable("basedpyright")
-vim.lsp.enable("shellcheck")
-
-vim.lsp.config.bashls = {
-	cmd = { 'bash-language-server', 'start' },
-	filetypes = { 'bash', 'sh' }
-}
-vim.lsp.enable 'bashls'
-
+-- vim.lsp.enable("basedpyright")
+-- vim.lsp.enable("shellcheck")
+-- vim.lsp.enable("marksman")
+--
+-- vim.lsp.config.marksman = {
+-- 	cmd = { 'marksman' },
+-- 	filetypes = { 'markdown' }
+-- }
+--
+-- vim.lsp.config.bashls = {
+-- 	cmd = { 'bash-language-server', 'start' },
+-- 	filetypes = { 'bash', 'sh' }
+-- }
+-- vim.lsp.enable 'bashls'
+--
+-- Overrides the mason-lspconfig settings?
 vim.lsp.enable("lua_ls")
 vim.lsp.config.lua_ls = {
 	settings = {
@@ -221,14 +228,15 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename
 vim.opt.autoread = true
 
 -- Trigger checktime to refresh buffers when focus changes or cursor moves
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-	pattern = "*",
-	callback = function()
-		if vim.fn.mode() ~= "c" then
-			vim.cmd("checktime")
-		end
-	end,
-})
+-- don't need this in 0.13!
+-- vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		if vim.fn.mode() ~= "c" then
+-- 			vim.cmd("checktime")
+-- 		end
+-- 	end,
+-- })
 
 -- TESTING
 -- vim.keymap.set('n', '<leader>gd', diffview.open, { desc= 'git diff view'})
