@@ -6,7 +6,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-
+vim.opt.timeoutlen = 100 -- show me things FAST
 vim.cmd.colorscheme("lunaperche")
 
 -- plugins
@@ -99,12 +99,50 @@ vim.g.mapleader = " "
 
 require("fzf-lua").setup()
 
-vim.keymap.set("n", "<leader><space>", FzfLua.global, { desc = "fzf global" })
-vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "fzf files" })
-vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "fzf files" })
-vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "fzf document symbols" })
-vim.keymap.set("n", "<leader>fb", FzfLua.buffers, { desc = "fzf buffers" })
-vim.keymap.set("n", "<leader>fj", FzfLua.jumps, { desc = "fzf jumps" })
+wk.add({
+	{ "<leader>s", group = "Search", mode = "n" },
+	{
+		"<leader><leader>",
+		FzfLua.global,
+		mode = "n",
+		silent = true,
+	},
+	{
+		"<leader>sf",
+		FzfLua.files,
+		desc = "search files",
+		silent = true,
+		mode = "n",
+	},
+	{
+		"<leader>sg",
+		FzfLua.live_grep,
+		desc = "search files",
+		mode = "n",
+		silent = true,
+	},
+	{
+		"<leader>ss",
+		FzfLua.lsp_document_symbols,
+		desc = "search document symbols",
+		mode = "n",
+		silent = true,
+	},
+	{
+		"<leader>sb",
+		FzfLua.buffers,
+		desc = "search buffers",
+		mode = "n",
+		silent = true,
+	},
+	{
+		"<leader>sj",
+		FzfLua.jumps,
+		desc = "search jumps",
+		mode = "n",
+		silent = true,
+	},
+})
 
 vim.keymap.set("n", "gd", FzfLua.lsp_definitions, { desc = "goto defintion" })
 
