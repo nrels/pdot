@@ -3,12 +3,12 @@ vim.opt.number = true
 vim.opt.linebreak = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.timeoutlen = 100 -- show me things FAST
+vim.opt.termguicolors = true
+vim.opt.guicursor = "n-v-i-c:hor20"
 vim.cmd.colorscheme("lunaperche")
-
 -- plugins
 vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -28,6 +28,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-tree/nvim-tree.lua" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	-- { src = "https://github.com/mfussenegger/nvim-dap" },
+	{ src = "https://github.com/rebelot/kanagawa.nvim" },
 	-- { src = "https://codeberg.org/mfussenegger/nvim-dap-python" },
 })
 
@@ -176,6 +177,9 @@ require("diffview").setup()
 local cmp = require("blink.cmp")
 cmp.build():pwait()
 cmp.setup({
+	sources = {
+		default = { "lsp", "path", "snippets", "buffer" },
+	},
 	keymap = {
 		preset = "default",
 		["<C-o>"] = { "show", "hide" },
@@ -200,11 +204,12 @@ cmp.setup({
 -- }
 -- vim.lsp.enable 'bashls'
 
-vim.lsp.enable("bashls")
-vim.lsp.config.bashls = {
-	cmd = { "bash-language-server", "start" },
-	filetypes = { "bash", "sh" },
-}
+-- vim.lsp.enable("bashls")
+-- vim.lsp.config.bashls = {
+-- 	cmd = { "bash-language-server", "start" },
+-- 	filetypes = { "bash", "sh" },
+-- }
+--
 
 vim.lsp.enable("lua_ls")
 vim.lsp.config.lua_ls = {
@@ -226,7 +231,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		-- -- Conform will run multiple formatters sequentially
-		python = { "ruff" },
+		python = { "ruff", "black", "pylsp" },
 		-- -- You can customize some of the format options for the filetype (:help conform.format)
 		-- rust = { "rustfmt", lsp_format = "fallback" },
 		-- -- Conform will run the first available formatter
@@ -263,14 +268,14 @@ end, { desc = "insert date timestamp" })
 
 -- UI
 require("outline").setup({})
-vim.keymap.set("n", "<leader>uo", "<cmd>Outline<CR>", { desc = "Toggle outline" })
+vim.keymap.set("n", "<leader>oo", "<cmd>Outline<CR>", { desc = "toggle outline" })
 
 require("nvim-tree").setup()
 -- vim.api.nvim_set_hl(0, "NvimTreeHighlights")
 
-vim.keymap.set("n", "<leader>ut", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
+vim.keymap.set("n", "<leader>of", "<cmd>NvimTreeToggle<CR>", { desc = "toggle file tree" })
 
-vim.keymap.set("n", "<leader>ue", vim.diagnostic.setloclist, { desc = "open errors panel" })
+vim.keymap.set("n", "<leader>oe", vim.diagnostic.setloclist, { desc = "toggle errors panel" })
 
 -- Bindings
 -- exit insert mode in terminal mode with escape

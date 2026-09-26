@@ -4,7 +4,7 @@ autoload -Uz vcs_info
 promptinit
 # prompt adam1
 # Custom native Zsh Prompt
-PROMPT='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
+PROMPT='%F{cyan}%~ %(?.%F{green}.%F{red})%#%f '
 
 setopt histignorealldups sharehistory
 
