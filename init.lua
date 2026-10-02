@@ -8,7 +8,7 @@ vim.opt.splitright = true
 vim.opt.timeoutlen = 100 -- show me things FAST
 vim.opt.termguicolors = true
 vim.opt.guicursor = "n-v-i-c:hor20"
-vim.cmd.colorscheme("lunaperche")
+
 -- plugins
 vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -27,10 +27,11 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/nvim-tree/nvim-tree.lua" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	-- { src = "https://github.com/mfussenegger/nvim-dap" },
-	{ src = "https://github.com/rebelot/kanagawa.nvim" },
-	-- { src = "https://codeberg.org/mfussenegger/nvim-dap-python" },
+	{ src = "https://github.com/WTFox/luna.nvim" },
+	{ src = "https://github.com/3rd/image.nvim" },
 })
+
+-- vim.cmd.colorschem("luna")
 
 vim.diagnostic.config({
 	virtual_text = true, -- Show errors inline
@@ -164,7 +165,7 @@ require("oil").setup({
 		-- "permissions",
 	},
 })
--- vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil" })
+vim.keymap.set("n", "<leader>e", ":e .<return>", { desc = "explore CWD with oil" })
 
 -- GIT stuff
 require("diffview").setup()
@@ -187,29 +188,6 @@ cmp.setup({
 	},
 	completion = { documentation = { auto_show = true } },
 })
-
--- LSP and Formatting
--- vim.lsp.enable("basedpyright")
--- vim.lsp.enable("shellcheck")
--- vim.lsp.enable("marksman")
---
--- vim.lsp.config.marksman = {
--- 	cmd = { 'marksman' },
--- 	filetypes = { 'markdown' }
--- }
---
--- vim.lsp.config.bashls = {
--- 	cmd = { 'bash-language-server', 'start' },
--- 	filetypes = { 'bash', 'sh' }
--- }
--- vim.lsp.enable 'bashls'
-
--- vim.lsp.enable("bashls")
--- vim.lsp.config.bashls = {
--- 	cmd = { "bash-language-server", "start" },
--- 	filetypes = { "bash", "sh" },
--- }
---
 
 vim.lsp.enable("lua_ls")
 vim.lsp.config.lua_ls = {
@@ -245,22 +223,22 @@ require("conform").setup({
 })
 
 -- tokyonight setup
--- require("tokyonight").setup({
--- 	-- use the night style
--- 	style = "night",
--- 	-- disable italic for functions
--- 	styles = {
--- 		functions = {},
--- 	},
--- 	-- Change the "hint" color to the "orange" color, and make the "error" color bright red
--- 	on_colors = function(colors)
--- 		colors.hint = colors.orange
--- 		colors.error = "#ff0000"
--- 		colors.bg = "#000000"
--- 		colors.fg = "#eeeeee"
--- 	end,
--- })
--- vim.cmd("colorscheme tokyonight-night")
+require("tokyonight").setup({
+	-- use the night style
+	style = "night",
+	-- disable italic for functions
+	styles = {
+		functions = {},
+	},
+	-- Change the "hint" color to the "orange" color, and make the "error" color bright red
+	on_colors = function(colors)
+		colors.hint = colors.orange
+		colors.error = "#ff0000"
+		colors.bg = "#000000"
+		colors.fg = "#dddddd"
+	end,
+})
+vim.cmd("colorscheme tokyonight-night")
 
 vim.keymap.set("n", "<leader>it", function()
 	vim.api.nvim_put({ os.date() }, "c", true, true)
@@ -352,3 +330,10 @@ vim.keymap.set("v", "<leader>cp", function()
 	copy_ref({ visual = true })
 end, { desc = "Copy file path with line range" })
 -- TODO: :set virtualedit=all for navigating
+
+-- TESTING
+require("image").setup({
+	backend = "kitty",
+	tmux_show_only_in_active_window = true, -- Key fix for tmux window/tab bleeding
+	editor_only_render_when_focused = true, -- Clears when switching windows/panes})
+})
