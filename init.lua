@@ -106,6 +106,7 @@ wk.add({
 	{
 		"<leader><leader>",
 		FzfLua.blines,
+		desc = "search current buffer lines",
 		mode = "n",
 		silent = true,
 	},
@@ -127,6 +128,13 @@ wk.add({
 		"<leader>ss",
 		FzfLua.lsp_document_symbols,
 		desc = "search document symbols",
+		mode = "n",
+		silent = true,
+	},
+	{
+		"<leader>sa",
+		FzfLua.global,
+		desc = "search all - global search",
 		mode = "n",
 		silent = true,
 	},
