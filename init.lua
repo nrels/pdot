@@ -105,7 +105,7 @@ wk.add({
 	{ "<leader>s", group = "Search", mode = "n" },
 	{
 		"<leader><leader>",
-		FzfLua.global,
+		FzfLua.blines,
 		mode = "n",
 		silent = true,
 	},
